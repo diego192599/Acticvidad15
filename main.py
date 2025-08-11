@@ -18,4 +18,17 @@ def agregar_Estudiantes():
                     else:
                         print("El nombre no puede quedar vacio intente nuevamente")
                 break
-        except ValueError
+        except ValueError:
+            print("Entrada invalida vuelva a intentar...")
+
+def Mostrar():
+    print("==Mostrar Informacion==")
+    if estudiantes:
+        cont=1
+        for nombre in estudiantes:
+            print(f"{cont}. {nombre}")
+            cont+=1
+    else:
+        print("No hay estudiantes registrados")
+
+def buscar():
