@@ -1,46 +1,62 @@
-from enum import nonmember
-
 estudiantes={}
 def agregar_Estudiantes():
-    print("==Agregar estudiante==")
-    cantidad=int(input("Ingrese la cantidad de estudiantes a agregar: "))
-    while True:
-        try:
-            if cantidad == 0:
-                print("La cantidad ingresada no es valida vuelva a intentar")
+    print("== Agregar estudiante ==")
+    cantidad = int(input("Ingrese la cantidad de estudiantes a agregar: "))
+    if cantidad <= 0:
+        print("Cantidad inválida.")
+        return
+
+    for i in range(cantidad):
+        while True:
+            try:
+                carnet = input(f"Ingrese el carnet del estudiante #{i + 1}: ").strip()
+                if not carnet:
+                    print("El carnet no puede quedar vacío.")
+                    continue
+                if carnet in estudiantes:
+                    print("Este carnet ya está registrado.")
+                    continue
+
+                nombre = input("Ingrese el nombre del estudiante: ").strip()
+                if not nombre:
+                    print("El nombre no puede quedar vacío.")
+                    continue
+
+                estudiantes[carnet] = nombre
+                print(f"Estudiante {nombre} registrado con carnet {carnet}.")
                 break
-            elif cantidad<0:
-                print("La cantidad no puede ser menor a 0")
-            else:
-                for i in range(cantidad):
-                    nombre=input(f"Ingrese el nombre del estudiante #{i+1}")
-                    if nombre:
-                        estudiantes[nombre]={}
-                        print(f"El {nombre} se ha guardado correctamente")
-                    else:
-                        print("El nombre no puede quedar vacio intente nuevamente")
-                break
-        except ValueError:
-            print("Entrada invalida vuelva a intentar...")
+            except ValueError:
+                print("Entrada inválida.")
+
 
 def Mostrar():
     print("==Mostrar Informacion==")
     if estudiantes:
-        cont=1
-        for nombre in estudiantes:
-            print(f"{cont}. {nombre}")
-            cont+=1
+        for carnet, nombre in estudiantes.items():
+            print(f"Carnet: {carnet} | Nombre: {nombre}")
     else:
-        print("No hay estudiantes registrados")
+        print("No hay estiduiantes")
 
 def buscar():
     print("Buscar estudiante")
-    busc=input("Ingrese el nombre del estudiante que se busca(presione 0 para terminar de buscar): ")
-    if busc==0:
-        print("Busqueda finalizada")
-    elif busc in estudiantes:
-        print(f"{busc} esta registrado")
-    else:
-        print(f"{busc} no se encuentra el los datos del sistema ")
-
-def eliminar()
+    seleccion=int(input("Seleccione una opcion de busqueda (1)Nombre o (2)Carnet: "))
+    if seleccion==1:
+        print("Buscar por nombre")
+        nombre_buscado=input("Ingrese el nombre del estudiante: ").strip()
+        encontrado=False
+        for carnet,nombre in estudiantes.items():
+            if nombre.lower()==nombre_buscado.lower():
+                print(f"Encontrado numero de carnet: {carnet} | Nombre: {nombre}")
+                encontrado=True
+            if not encontrado:
+                print("EL nombre no se encuentra ese nombre en la base de datos del sistema")
+    elif seleccion==2:
+        carnet_buscado=input("Ingrese el carnet del estudiantea buscar: ").strip()
+        if carnet_buscado in estudiantes:
+            print(f"")
+def eliminar():
+    print("Eliminar estudiante")
+    nombre=input("Ingrese el nombre del estudiante a eliminar(para terminar de eliminar estudiantes presione 0): ")
+    if nombre==0:
+        print("Opereacion cancelada")
+    elif nombre in estudiantes:
