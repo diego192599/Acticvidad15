@@ -1,3 +1,5 @@
+from enum import nonmember
+
 estudiantes={}
 def agregar_Estudiantes():
     print("==Agregar estudiante==")
@@ -33,4 +35,12 @@ def Mostrar():
 
 def buscar():
     print("Buscar estudiante")
-    busc=input("Ingrese el nombre del estudiante que se busca: ")
+    busc=input("Ingrese el nombre del estudiante que se busca(presione 0 para terminar de buscar): ")
+    if busc==0:
+        print("Busqueda finalizada")
+    elif busc in estudiantes:
+        print(f"{busc} esta registrado")
+    else:
+        print(f"{busc} no se encuentra el los datos del sistema ")
+
+def eliminar()
