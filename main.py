@@ -32,3 +32,5 @@ def Mostrar():
         print("No hay estudiantes registrados")
 
 def buscar():
+    print("Buscar estudiante")
+    busc=input("Ingrese el nombre del estudiante que se busca: ")
