@@ -1,15 +1,25 @@
-estudiantes={}
+estudiantes = {}
+
+def mostrar_encabezado(titulo):
+    print("\n" + "=" * 40)
+    print(titulo.center(40))
+    print("=" * 40)
+
 def agregar_Estudiantes():
-    print("== Agregar estudiante ==")
+    mostrar_encabezado("Agregar Estudiante")
     while True:
         cantidad = input("Ingrese la cantidad de estudiantes a agregar (0 para cancelar): ").strip()
         if cantidad == "0":
             print("Cancelando registro de estudiantes...")
             return
-        if not cantidad.isdigit() or int(cantidad) <= 0:
+        try:
+            cantidad = int(cantidad)
+            if cantidad <= 0:
+                print("Cantidad inválida.")
+                continue
+        except:
             print("Cantidad inválida.")
             continue
-        cantidad = int(cantidad)
 
         for i in range(cantidad):
             while True:
@@ -17,7 +27,7 @@ def agregar_Estudiantes():
                 if carnet == "0":
                     print("Cancelando ingreso de este estudiante...")
                     break
-                if not carnet:
+                if carnet == "":
                     print("El carnet no puede quedar vacío.")
                     continue
                 if carnet in estudiantes:
@@ -25,7 +35,7 @@ def agregar_Estudiantes():
                     continue
 
                 nombre = input("Ingrese el nombre del estudiante: ").strip()
-                if not nombre:
+                if nombre == "":
                     print("El nombre no puede quedar vacío.")
                     continue
 
@@ -33,17 +43,18 @@ def agregar_Estudiantes():
                 print(f"Estudiante {nombre} registrado con carnet {carnet}.")
                 break
         break
+
 def Mostrar():
-    print("==Mostrar Informacion==")
+    mostrar_encabezado("Lista de Estudiantes")
     if estudiantes:
         for carnet, nombre in estudiantes.items():
             print(f"Carnet: {carnet} | Nombre: {nombre}")
     else:
-        print("No hay estiduiantes")
+        print("No hay estudiantes registrados.")
 
 def buscar():
     while True:
-        print("\n== Buscar estudiante ==")
+        mostrar_encabezado("Buscar Estudiante")
         seleccion = input("Seleccione (1)Nombre, (2)Carnet o (0)Salir: ").strip()
         if seleccion == "0":
             print("Saliendo de búsqueda...")
@@ -70,20 +81,24 @@ def buscar():
 
 def eliminar():
     while True:
-        print("\n== Eliminar estudiante ==")
+        mostrar_encabezado("Eliminar Estudiante")
         carnet = input("Ingrese el carnet a eliminar (0 para cancelar): ").strip()
         if carnet == "0":
             print("Cancelando eliminación...")
             break
         if carnet in estudiantes:
-            eliminado = estudiantes.pop(carnet)
-            print(f"Estudiante {eliminado} eliminado correctamente.")
+            confirmacion = input(f"¿Está seguro que desea eliminar a {estudiantes[carnet]}? (s/n): ").strip().lower()
+            if confirmacion == "s":
+                eliminado = estudiantes.pop(carnet)
+                print(f"Estudiante {eliminado} eliminado correctamente.")
+            else:
+                print("Eliminación cancelada.")
         else:
             print("Ese carnet no existe.")
 
 
 while True:
-    print("\n===== MENÚ PRINCIPAL =====")
+    mostrar_encabezado("MENÚ PRINCIPAL")
     print("1. Agregar estudiante")
     print("2. Mostrar estudiantes")
     print("3. Buscar estudiante")
