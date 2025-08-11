@@ -80,3 +80,29 @@ def eliminar():
             print(f"Estudiante {eliminado} eliminado correctamente.")
         else:
             print("Ese carnet no existe.")
+
+
+while True:
+    print("\n===== MENÚ PRINCIPAL =====")
+    print("1. Agregar estudiante")
+    print("2. Mostrar estudiantes")
+    print("3. Buscar estudiante")
+    print("4. Eliminar estudiante")
+    print("0. Salir")
+
+    opcion = input("Seleccione una opción: ").strip()
+
+    match opcion:
+        case "1":
+            agregar_Estudiantes()
+        case "2":
+            Mostrar()
+        case "3":
+            buscar()
+        case "4":
+            eliminar()
+        case "0":
+            print("Saliendo del programa...")
+            break
+        case _:
+            print("Opción inválida.")
